@@ -42,7 +42,12 @@ theme:
 extra_css:
   - "stylesheets/extra.css"
 
+extra:
+  version:
+    provider: mike
+
 plugins:
+  - search
   - mike:
       # These fields are all optional; the defaults are as below...
       # alias_type: symlink
