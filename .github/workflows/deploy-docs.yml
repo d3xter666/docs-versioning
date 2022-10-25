@@ -23,5 +23,5 @@ jobs:
           git config --local user.name "github-actions[bot]"
       - name: Deploy with mike 🚀
         run: |
-          mike deploy 0.3 latest --update-aliases --rebase --push --force
-          mike set-default 0.3 --push --rebase
+          mike deploy 0.5 latest --update-aliases --rebase --push
+          mike set-default 0.5 --push --rebase
