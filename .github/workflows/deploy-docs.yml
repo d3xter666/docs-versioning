@@ -29,11 +29,15 @@ jobs:
           python-version: "3.10"
       - run: pip install mkdocs-material
       - run: pip install mike
-      - uses: JamesIves/github-pages-deploy-action@v4.4.0
-        with:
+      # - uses: JamesIves/github-pages-deploy-action@v4.4.0
+      #   with:
         #   branch: gh-pages
         #   folder: site
-          token: ${{ secrets.GH_PAT }}
-          git-config-name: OpenUI5 Bot
-          git-config-email: openui5@sap.com
+          # token: ${{ secrets.GH_PAT }}
+          # git-config-name: OpenUI5 Bot
+          # git-config-email: openui5@sap.com
+      - name: Configure Git user
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
       - run: mike deploy 0.2 latest -u
