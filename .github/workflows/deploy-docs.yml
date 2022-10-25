@@ -24,6 +24,8 @@ jobs:
       - name: Deploy with mike 🚀
         run: |
           git fetch --all
-          git pull origin gh-pages --rebase
+          git checkout gh-pages
+          git pull
+          git checkout master
           mike deploy 0.7 latest --update-aliases
           mike set-default 0.7 --push
