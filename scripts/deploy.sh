@@ -4,9 +4,6 @@ set -e
 git config --local user.email "github-actions[bot]@users.noreply.github.com"
 git config --local user.name "github-actions[bot]"
 
-# GIT_COMMITTER_NAME="github-actions[bot]"
-# GIT_COMMITTER_EMAIL="github-actions[bot]@users.noreply.github.com"
-
 echo "Setting up build of documentation and tagging it with version" $MIKE_VERSION;
 
 if [[ $MIKE_ALIAS ]]; then
