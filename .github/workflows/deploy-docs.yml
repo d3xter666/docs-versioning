@@ -8,12 +8,13 @@ jobs:
     name: Build and Deploy
     runs-on: ubuntu-20.04
     steps:
+    - uses: actions/checkout@v3
     - name: Test shell
       run: |
         ls -l > 1.txt
         cat 1.txt
     - name: Build Docker image
-      run: buildImage.sh
+      run: ./scripts/buildImage.sh
     - name: Build mkdocs
       run: |
         chmod +x ./scripts/deploy.sh
