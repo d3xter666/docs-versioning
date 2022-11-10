@@ -5,4 +5,4 @@ RUN pip install mike
 WORKDIR /docs
 
 # Start development server by default
-ENTRYPOINT [""]
+ENTRYPOINT ["mike"]

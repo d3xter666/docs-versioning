@@ -15,11 +15,11 @@ jobs:
         cat 1.txt
         chmod +x ./scripts/buildImage.sh
         ./scripts/buildImage.sh
-      shell: bash
+      # shell: bash
     - name: Build mkdocs
-      shell: bash
+      # shell: bash
       run: |
         chmod +x ./scripts/deploy.sh
         ./scripts/deploy.sh
-      env:
-        MIKE_VERSION: 0.9
+      # env:
+        # MIKE_VERSION: 0.9
