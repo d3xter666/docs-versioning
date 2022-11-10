@@ -8,10 +8,10 @@ jobs:
     name: Build and Deploy
     runs-on: ubuntu-20.04
     steps:
-    - name: Build Docker image
+    - name: Test shell
       run: |
-        ls
-        echo "Testing it!"
+        ls -l > 1.txt
+        cat 1.txt
     - name: Build Docker image
       run: buildImage.sh
     - name: Build mkdocs
