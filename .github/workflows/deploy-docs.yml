@@ -12,11 +12,11 @@ jobs:
       run: |
         chmod +x ./scripts/buildImage.sh
         ./scripts/buildImage.sh
-      shell: bash
+      shell: sh
     - name: Build mkdocs
       run: |
         chmod +x ./scripts/deploy.sh
         ./scripts/deploy.sh
       env:
         MIKE_VERSION: 0.9
-      shell: bash
+      shell: sh
