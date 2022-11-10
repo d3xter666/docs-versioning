@@ -8,5 +8,9 @@ jobs:
     name: Build and Deploy
     runs-on: ubuntu-20.04
     steps:
+    - name: Where I am
+      run: ls -l
+    - name: Build Docker image
+      run: sh scripts/deploy.sh
     - name: Build mkdocs
       run: export MIKE_VERSION=0.9 && bash ./scripts/deploy.sh
