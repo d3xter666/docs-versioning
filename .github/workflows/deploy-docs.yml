@@ -9,10 +9,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
     - name: Build Docker image
-      run: |
-        chmod +x ./scripts/buildImage.sh
-        ./scripts/buildImage.sh
-      shell: sh
+      run: ./scripts/buildImage.sh
     - name: Build mkdocs
       run: |
         chmod +x ./scripts/deploy.sh
