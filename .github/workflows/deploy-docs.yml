@@ -13,10 +13,8 @@ jobs:
       run: |
         ls -l > 1.txt
         cat 1.txt
-    - name: Build Docker image
-      run: |
-        chmod +x ./scripts/deploy.sh
-        ./scripts/buildImage.sh
+        chmod +x ./buildImage.sh
+        ./buildImage.sh
       shell: bash
     - name: Build mkdocs
       shell: bash
