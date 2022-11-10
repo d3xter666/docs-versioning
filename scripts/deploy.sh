@@ -1,0 +1,19 @@
+#!/bin/bash
+set -e
+
+# git config --local user.email "github-actions[bot]@users.noreply.github.com"
+# git config --local user.name "github-actions[bot]"
+
+GIT_COMMITTER_NAME="github-actions[bot]"
+GIT_COMMITTER_EMAIL="github-actions[bot]@users.noreply.github.com"
+
+echo "Setting up build of documentation and tagging it with version" $MIKE_VERSION;
+
+if [[ $MIKE_ALIAS ]]; then
+	echo "Alias set to" $MIKE_ALIAS;
+fi
+
+docker run --rm -it -v $(pwd):/docs squidfunk/mkdocs-material:6.0.2 /bin/sh -c "mike deploy ${MIKE_VERSION} ${MIKE_ALIAS} --update-aliases && mike set-default ${MIKE_VERSION}"
+echo "Documentation build & tagged"
+
+exit 0

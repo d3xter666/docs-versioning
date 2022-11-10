@@ -2,30 +2,11 @@ name: Build and Deploy Docs
 on:
   push:
     branches:
-      - master
+      - docker
 jobs:
   build-and-deploy:
     name: Build and Deploy
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.10"
-      - name: Set up Python
-        run: |
-          pip install mkdocs-material
-          pip install mike
-      - name: Configure Git user
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-      - name: Deploy with mike 🚀
-        run: |
-          git fetch --all
-          git checkout gh-pages
-          git pull
-          git checkout master
-          mike deploy 0.7 latest --update-aliases
-          mike set-default 0.7 --push
+    - name: Build mkdocs
+      run: export MIKE_VERSION=0.9 && bash ./scripts/deploy.sh
