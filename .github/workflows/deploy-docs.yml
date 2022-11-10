@@ -14,11 +14,14 @@ jobs:
         ls -l > 1.txt
         cat 1.txt
     - name: Build Docker image
-      run: ./scripts/buildImage.sh
+      run: |
+        chmod +x ./scripts/deploy.sh
+        ./scripts/buildImage.sh
+      shell: bash
     - name: Build mkdocs
+      shell: bash
       run: |
         chmod +x ./scripts/deploy.sh
         ./scripts/deploy.sh
       env:
         MIKE_VERSION: 0.9
-      shell: sh
