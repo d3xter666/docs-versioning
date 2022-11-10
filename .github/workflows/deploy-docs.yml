@@ -9,16 +9,20 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
-      - name: Test shell
+      - name: Build Custom Docker Image
         run: |
-          ls ./scripts -l > 1.txt
-          cat 1.txt
           chmod +x ./scripts/buildImage.sh
           ./scripts/buildImage.sh
-      - name: Build mkdocs
+      - name: Build Documentation
         run: |
           chmod +x ./scripts/deploy.sh
           ./scripts/deploy.sh
         env:
           MIKE_VERSION: 0.9
           MIKE_ALIAS: stable
+      - name: Publish changes 🚀
+        run: |
+          git fetch --all
+          git checkout gh-pages
+          git pull
+          git push
