@@ -21,3 +21,4 @@ jobs:
           ./scripts/deploy.sh
         env:
           MIKE_VERSION: 0.9
+          MIKE_ALIAS: stable
