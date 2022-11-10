@@ -11,10 +11,10 @@ jobs:
     - uses: actions/checkout@v3
     - name: Test shell
       run: |
-        ls -l > 1.txt
+        ls ./scripts -l > 1.txt
         cat 1.txt
-        chmod +x ./buildImage.sh
-        ./buildImage.sh
+        chmod +x ./scripts/buildImage.sh
+        ./scripts/buildImage.sh
       shell: bash
     - name: Build mkdocs
       shell: bash
