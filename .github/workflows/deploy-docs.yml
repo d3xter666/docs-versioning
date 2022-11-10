@@ -9,8 +9,14 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
     - name: Build Docker image
-      run: ./scripts/buildImage.sh
+      run: |
+        chmod +x ./scripts/buildImage.sh
+        ./scripts/buildImage.sh
       shell: bash
     - name: Build mkdocs
-      run: export MIKE_VERSION=0.9 && ./scripts/deploy.sh
+      run: |
+        chmod +x ./scripts/deploy.sh
+        ./scripts/deploy.sh
+      env:
+        MIKE_VERSION: 0.9
       shell: bash
