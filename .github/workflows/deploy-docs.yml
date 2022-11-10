@@ -13,13 +13,10 @@ jobs:
       run: |
         ls ./scripts -l > 1.txt
         cat 1.txt
-        chmod +x ./scripts/buildImage.sh
         ./scripts/buildImage.sh
       shell: bash
     - name: Build mkdocs
       shell: bash
-      run: |
-        chmod +x ./scripts/deploy.sh
-        ./scripts/deploy.sh
+      run: ./scripts/deploy.sh
       env:
         MIKE_VERSION: 0.9
