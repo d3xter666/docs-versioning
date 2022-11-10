@@ -9,7 +9,9 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
     - name: Build Docker image
-      run: ls
+      run: |
+        ls
+        echo "Testing it!"
     - name: Build Docker image
       run: buildImage.sh
     - name: Build mkdocs
