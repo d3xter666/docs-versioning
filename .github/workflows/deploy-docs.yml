@@ -23,11 +23,10 @@ jobs:
           chmod +x ./scripts/deploy.sh
           ./scripts/deploy.sh
         env:
-          MIKE_VERSION: 0.9
+          MIKE_VERSION: 0.9-beta
           MIKE_ALIAS: stable
-      - name: Sync gh-pages
-        uses: actions/checkout@v3
-        with:
-          ref: gh-pages
       - name: Publish changes 🚀
-        run: git push
+        run: |
+          git reset --hard
+          git checkout gh-pages
+          git push
