@@ -8,7 +8,12 @@ jobs:
     name: Build and Deploy
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v3
+      - name: Sync gh-pages
+        uses: actions/checkout@v3
+        with:
+          ref: gh-pages
+      - name: Checkout Source Branch
+        uses: actions/checkout@v3
       - name: Build Custom Docker Image
         run: |
           chmod +x ./scripts/buildImage.sh
@@ -20,7 +25,9 @@ jobs:
         env:
           MIKE_VERSION: 0.9
           MIKE_ALIAS: stable
+      - name: Sync gh-pages
+        uses: actions/checkout@v3
+        with:
+          ref: gh-pages
       - name: Publish changes 🚀
-        run: |
-          git checkout gh-pages --force
-          git push
+        run: git push
