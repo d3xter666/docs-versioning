@@ -9,9 +9,10 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Sync gh-pages
-        uses: actions/checkout@v3
-        with:
-          ref: gh-pages
+        run: git fetch origin gh-pages --depth=1
+        # uses: actions/checkout@v3
+        # with:
+        #   ref: gh-pages
       - name: GH_PAGES list
         run: |
           ls -l > 1.txt
@@ -27,12 +28,5 @@ jobs:
           chmod +x ./scripts/deploy.sh
           ./scripts/deploy.sh
         env:
-          MIKE_VERSION: 0.9-beta2
-          MIKE_ALIAS: stable
-      - name: Test
-        run: docker run --rm -v $(pwd):/docs squidfunk/mkdocs-material:6.0.2 mike list
-      - name: Publish changes 🚀
-        run: |
-          git reset --hard
-          git checkout gh-pages
-          git push origin gh-pages
+          MIKE_VERSION: 0.9
+          MIKE_ALIAS: latest
