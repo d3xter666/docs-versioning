@@ -11,8 +11,8 @@ if [[ $MIKE_ALIAS ]]; then
 fi
 
 # docker run --rm -it -v $(pwd):/docs squidfunk/mkdocs-material:6.0.2 /bin/sh -c "mike deploy ${MIKE_VERSION} ${MIKE_ALIAS} --update-aliases && mike set-default ${MIKE_VERSION}"
-docker run --rm -v $(pwd):/docs squidfunk/mkdocs-material:6.0.2 deploy $MIKE_VERSION $MIKE_ALIAS --update-aliases
-docker run --rm -v $(pwd):/docs squidfunk/mkdocs-material:6.0.2 set-default $MIKE_VERSION
+docker run --rm -v $(pwd):/docs squidfunk/mkdocs-material:6.0.2 mike deploy $MIKE_VERSION $MIKE_ALIAS --rebase --update-aliases
+docker run --rm -v $(pwd):/docs squidfunk/mkdocs-material:6.0.2 mike set-default $MIKE_VERSION
 echo "Documentation build & tagged"
 
 exit 0
