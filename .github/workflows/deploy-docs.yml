@@ -11,11 +11,10 @@ jobs:
       - uses: actions/checkout@v3
       - name: Git Sync
         run: |
-          ZZZ=${{ env.GITHUB_REF_NAME }}
           git fetch --all
           git checkout gh-pages
           git pull
-          git checkout ${{ ZZZ }}
+          git checkout docker
       - name: Build Custom Docker Image
         run: |
           chmod +x ./scripts/buildImage.sh
