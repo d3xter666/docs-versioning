@@ -22,5 +22,5 @@ jobs:
           MIKE_ALIAS: stable
       - name: Publish changes 🚀
         run: |
-          git checkout gh-pages
+          git checkout gh-pages --force
           git push
