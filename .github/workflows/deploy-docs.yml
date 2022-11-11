@@ -8,17 +8,13 @@ jobs:
     name: Build and Deploy
     runs-on: ubuntu-20.04
     steps:
+      - name: Checkout Source Branch
+        uses: actions/checkout@v3
       - name: Sync gh-pages
         run: git fetch origin gh-pages --depth=1
         # uses: actions/checkout@v3
         # with:
         #   ref: gh-pages
-      - name: GH_PAGES list
-        run: |
-          ls -l > 1.txt
-          cat 1.txt
-      - name: Checkout Source Branch
-        uses: actions/checkout@v3
       - name: Build Custom Docker Image
         run: |
           chmod +x ./scripts/buildImage.sh
