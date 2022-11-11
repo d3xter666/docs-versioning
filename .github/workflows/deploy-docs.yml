@@ -8,23 +8,25 @@ jobs:
     name: Build and Deploy
     runs-on: ubuntu-20.04
     steps:
-      - name: Sync gh-pages
-        uses: actions/checkout@v3
-        with:
-          ref: gh-pages
       - name: Checkout Source Branch
         uses: actions/checkout@v3
       - name: Build Custom Docker Image
         run: |
           chmod +x ./scripts/buildImage.sh
           ./scripts/buildImage.sh
+      - name: Sync gh-pages
+        uses: actions/checkout@v3
+        with:
+          ref: gh-pages
       - name: Build Documentation
         run: |
           chmod +x ./scripts/deploy.sh
           ./scripts/deploy.sh
         env:
-          MIKE_VERSION: 0.9-beta
+          MIKE_VERSION: 0.9-beta2
           MIKE_ALIAS: stable
+      - name: Test
+        run: docker run --rm -v $(pwd):/docs squidfunk/mkdocs-material:6.0.2 mike list
       - name: Publish changes 🚀
         run: |
           git reset --hard
