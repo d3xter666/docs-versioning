@@ -28,5 +28,6 @@ jobs:
           MIKE_ALIAS: stable
       - name: Publish changes 🚀
         run: |
+          git reset --hard gh-pages
           git checkout gh-pages
           git push
