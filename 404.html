@@ -8,9 +8,20 @@
 		<meta http-equiv="refresh" content="1; url=0.9/" />
 	</noscript>
 	<script>
-		var path = window.location.pathname.split("/");
-		path.shift();
-		window.location.replace(path.join("/"), ["latest"].concat(path).join("/"));
+		var url = new URL(window.location);
+		var path = url.pathname.split("/");
+
+		// To prevent infinite loop redirect to the root folder if already redirected to a non-existing path.
+		// From there mike would "know" what to do.
+		if (url.searchParams.get("404redirect")) {
+			path.splice(2, (path.length - 3));
+		} else {
+			path.splice(2, 0, "latest"); // Redirect to the latest release
+			url.searchParams.set("404redirect", "true");
+		}
+
+		url.pathname = path.join("/");
+		window.location = url.toString();
 	</script>
 </head>
 
