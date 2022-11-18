@@ -8,7 +8,9 @@
 		<meta http-equiv="refresh" content="1; url=0.9/" />
 	</noscript>
 	<script>
-		window.location.replace(window.location.path, "latest" + window.location.path);
+		var path = window.location.pathname.split("/");
+		path.shift();
+		window.location.replace(path.join("/"), ["latest"].concat(path).join("/"));
 	</script>
 </head>
 
