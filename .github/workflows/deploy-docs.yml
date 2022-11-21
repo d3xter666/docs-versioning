@@ -21,5 +21,5 @@ jobs:
           chmod +x ./scripts/deploy.sh
           ./scripts/deploy.sh
         env:
-          MIKE_VERSION: 0.9
+          MIKE_VERSION: 0.9-zzz
           MIKE_ALIAS: latest
