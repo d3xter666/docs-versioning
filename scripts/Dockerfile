@@ -4,8 +4,6 @@ RUN pip install mike
 # Set working directory
 WORKDIR /docs
 
-COPY mkdocs.yml mkdocs.yml
-
 # Expose MkDocs development server port
 EXPOSE 8000
 
