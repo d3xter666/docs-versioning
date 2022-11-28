@@ -7,19 +7,61 @@ jobs:
   build-and-deploy:
     name: Build and Deploy
     runs-on: ubuntu-20.04
+    env:
+      MIKE_VERSION: v2
+      MIKE_ALIAS: latest
+      DOCKER_IMAGE: squidfunk/mkdocs-material:8.5.9
+      GH_NAME: "OpenUI5 Bot"
+      GH_EMAIL: "openui5@sap.com"
+
     steps:
-      - name: Checkout Source Branch
-        uses: actions/checkout@v3
-      - name: Sync gh-pages
-        run: git fetch origin gh-pages --depth=1
-      - name: Build Custom Docker Image
-        run: |
-          chmod +x ./scripts/buildImage.sh
-          ./scripts/buildImage.sh
-      - name: Build Documentation
-        run: |
-          chmod +x ./scripts/deploy.sh
-          ./scripts/deploy.sh
-        env:
-          MIKE_VERSION: 0.9-zzz
-          MIKE_ALIAS: latest
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Install npm dependencies
+      run: npm ci
+
+    - name: Update CLI Doc
+      run: npm run generate-cli-doc
+
+    - name: GitHub Configuration
+      run: |
+        git fetch origin gh-pages --depth=1
+        git config --local user.email $GH_EMAIL
+        git config --local user.name $GH_NAME
+
+    - name: Build Mike Image
+      run: |
+        chmod +x ./scripts/buildImage.sh
+        ./scripts/buildImage.sh
+
+    - name: Build MkDocs with Mike (versioning)
+      run: docker run --rm -v $(pwd):/docs $DOCKER_IMAGE mike deploy $MIKE_VERSION $MIKE_ALIAS --rebase --update-aliases
+
+    - name: Publish MkDocs with Mike (versioning)
+      run: docker run --rm -v $(pwd):/docs $DOCKER_IMAGE mike set-default $MIKE_VERSION --push
+
+    - name: Set /site ownership to current user
+      run: sudo chown -R $(id -u):$(id -g) ./site
+    - name: Build JSDoc
+      run: npm run jsdoc-generate
+    - name: Build Schema
+      run: npm run schema-generate
+
+    - name: Checkout gh-pages
+      uses: actions/checkout@v3
+      with:
+        ref: gh-pages
+        path: gh-pages
+    - name: Copy the API to gh-pages
+      run: |
+        cp -R ./site/api ./gh-pages/$MIKE_VERSION/api
+        cp ./scripts/resources/custom404.html ./gh-pages/404.html
+    - name: Publish API
+      run: |
+        cd ./gh-pages
+        git config --local user.email $GH_EMAIL
+        git config --local user.name $GH_NAME
+        git add .
+        git commit -m "$(git log -1 --pretty=%B)"
+        git push --force
